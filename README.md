@@ -12,9 +12,9 @@ You will need to add **three** repositories. Mine, Illumines's and Owain's.
 
 Mine:
 
-**Github Repository owner:** 
+**Github Repository owner:** hass-twon
 
-**Github Repository name:** 
+**Github Repository name:** hass-external-plugins
 
 Illumine's:
 
