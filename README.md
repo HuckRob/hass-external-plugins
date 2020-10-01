@@ -1,4 +1,4 @@
-# c17 Plugins
+# hass Plugins
 
 External plugins for OpenOSRS.
 
@@ -12,9 +12,9 @@ You will need to add **three** repositories. Mine, Illumines's and Owain's.
 
 Mine:
 
-**Github Repository owner:** cybrog-17
+**Github Repository owner:** hass-twon
 
-**Github Repository name:** c17-plugins
+**Github Repository name:** hass-external-plugins
 
 Illumine's:
 
@@ -22,23 +22,8 @@ Illumine's:
 
 **Github Repository name:** illu-plugins
 
-Owain's:
-
-**Github Repository owner:** Owain94
-
-**Github Repository name:** OpenOSRS-external-plugins-hosting
 
 
-# How to setup:
-Herb cleaner:
-Works at GE, cleans herbs automaticlly. All you need is to set up the right grimy herb ID.
-
-
-Varrock Smither:
-Need a hammer in Inventory and bars in bank. Stay close to the banker thats near the anvil.
-If bank is out of bars, plugin will stop.
-
-My plugins work with Owain's chinbreakhandler and illumineawake Botutils.
 
 
 # Credits
