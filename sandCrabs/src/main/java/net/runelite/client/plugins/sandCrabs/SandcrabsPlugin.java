@@ -173,7 +173,7 @@ public class SandcrabsPlugin extends Plugin {
                      timeRan = duration.toSeconds();
                     timeRun = (int) timeRan;
 
-                     utils.sendGameMessage(Integer.toString(timeRun));
+                    // utils.sendGameMessage(Integer.toString(timeRun));
                      if (timeRun > 610){
                          waiting = false;
                          goReset = true;
