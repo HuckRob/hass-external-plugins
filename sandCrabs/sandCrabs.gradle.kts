@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.1.0"
+version = "0.2.0"
 
 project.extra["PluginName"] = "Sand Crabs"
 project.extra["PluginDescription"] = "harastwon - does sand crabs, resets aggro after 10 mins"

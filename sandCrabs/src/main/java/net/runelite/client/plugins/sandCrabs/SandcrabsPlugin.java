@@ -46,7 +46,7 @@ import org.pf4j.Extension;
 import javax.inject.Inject;
 import java.time.Duration;
 import java.time.Instant;
-
+import net.runelite.client.ui.overlay.OverlayManager;
 
 @Extension
 @PluginDependency(BotUtils.class)
@@ -63,6 +63,12 @@ public class SandcrabsPlugin extends Plugin {
     private Client client;
 
     @Inject
+    private OverlayManager overlayManager;
+
+    @Inject
+    private SandcrabsOverlay overlay;
+
+    @Inject
     private SandcrabsConfiguration config;
 
     @Inject
@@ -75,6 +81,7 @@ public class SandcrabsPlugin extends Plugin {
     private ItemManager itemManager;
 
     Instant botTimer;
+    Instant totalTimer;
     Player player;
     LocalPoint beforeLoc = new LocalPoint(0, 0);
     WorldPoint customLocation;
@@ -89,6 +96,10 @@ public class SandcrabsPlugin extends Plugin {
     int timeRun;
     boolean waiting;
     boolean goReset;
+    String status;
+    int timeRuns;
+    int randVar;
+
     @Provides
     SandcrabsConfiguration provideConfig(ConfigManager configManager) {
         return configManager.getConfig(SandcrabsConfiguration.class);
@@ -99,7 +110,7 @@ public class SandcrabsPlugin extends Plugin {
     protected void startUp() {
 
         utils.sendGameMessage("plogin Started");
-
+        overlayManager.add(overlay);
     }
 
     @Override
@@ -109,6 +120,7 @@ public class SandcrabsPlugin extends Plugin {
         startBot = false;
         waiting = false;
         goReset = false;
+        overlayManager.remove(overlay);
 
     }
 
@@ -123,7 +135,8 @@ public class SandcrabsPlugin extends Plugin {
             utils.sendGameMessage("starting");
             setLocations();
             botTimer = Instant.now();
-
+            totalTimer = Instant.now();
+            randVar = utils.getRandomIntBetweenRange(-5,6);
             walkToCrab = true;
             startBot = true;
             waiting = false;
@@ -151,20 +164,21 @@ public class SandcrabsPlugin extends Plugin {
 			switch (states) {
 				case "GOTOCRAB":
 
-				    utils.sendGameMessage("Going to crabs");
+				    //utils.sendGameMessage("Going to crabs");
 					if (player.getWorldLocation().distanceTo(customLocation) > 0) {
 						utils.webWalk(customLocation, 0, utils.isMoving(beforeLoc), sleepDelay());
 					//	utils.walk(customLocation,0,sleepDelay());
+                        status = "Walking to crab";
 						timeout = tickDelay();
 						break;
 					}else{
-					    utils.sendGameMessage("at position");
+					    //utils.sendGameMessage("at position");
 					    walkToCrab =false;
 					    waiting = true;
 					    botTimer = Instant.now();
-                     //   Duration duration = Duration.between(botTimer, Instant.now());
-                       // timeRan = duration.toSeconds();
-                        //timeRun = (int) timeRan;
+                      //  Duration duration = Duration.between(botTimer, Instant.now());
+                      //  timeRan = duration.toSeconds();
+                     //   timeRun =600- (int) timeRan;
 					 //   log.info(String.valueOf(duration));
 					  //  utils.sendGameMessage(Integer.toString(timeRun));
                     }
@@ -172,9 +186,10 @@ public class SandcrabsPlugin extends Plugin {
                     Duration duration = Duration.between(botTimer, Instant.now());
                      timeRan = duration.toSeconds();
                     timeRun = (int) timeRan;
-
+                    status = "Waiting until reset";
+                    timeRuns = (620+randVar)-timeRun;
                     // utils.sendGameMessage(Integer.toString(timeRun));
-                     if (timeRun > 610){
+                     if (timeRun > 620+randVar){
                          waiting = false;
                          goReset = true;
 
@@ -186,11 +201,12 @@ public class SandcrabsPlugin extends Plugin {
                      //   utils.webWalk(resetLocation, 3, utils.isMoving(beforeLoc), sleepDelay());
                         utils.walk(resetLocation,3,sleepDelay());
                         timeout = tickDelay();
+                        status = "Resetting";
                         break;
                     }else {
                         walkToCrab = true;
                         goReset = false;
-                        utils.sendGameMessage("at reset spot");
+                      //  utils.sendGameMessage("at reset spot");
                     }
 
 
