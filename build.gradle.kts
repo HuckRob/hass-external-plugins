@@ -13,7 +13,7 @@ plugins {
     checkstyle
 }
 
-project.extra["GithubUrl"] = ""
+project.extra["GithubUrl"] = "https://github.com/hass-twon/hass-external-plugins"
 
 apply<BootstrapPlugin>()
 
@@ -35,7 +35,7 @@ allprojects {
 subprojects {
     group = "com.openosrs.externals"
 
-    project.extra["PluginProvider"] = "hass"
+    project.extra["PluginProvider"] = "hass-twon"
     project.extra["ProjectSupportUrl"] = "https://discord.gg/9fGzEDR"
     project.extra["PluginLicense"] = "3-Clause BSD License"
 
