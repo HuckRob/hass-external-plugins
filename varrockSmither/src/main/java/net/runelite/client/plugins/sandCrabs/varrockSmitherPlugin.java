@@ -56,7 +56,7 @@ import net.runelite.api.ItemID;
 	name = "Varrock Smither",
 	enabledByDefault = false,
 	description = "Smiths item of choice at varrock",
-	tags = {"smith"},
+	tags = {"smith","varrock smithing"},
 	type = PluginType.SKILLING
 )
 @Slf4j
@@ -93,7 +93,7 @@ public class varrockSmitherPlugin extends Plugin {
 	boolean firstTime;
 	boolean withDrawNow;
 	int smithingWidg;
-	String item  = "SMITHING_ANVIL_DAGGER";
+	//String item  = "SMITHING_ANVIL_DAGGER";
 	List<Integer> REQUIRED_ITEMS = new ArrayList<>();
 	@Provides
 	varrockSmitherConfiguration provideConfig(ConfigManager configManager) {
@@ -177,7 +177,7 @@ public class varrockSmitherPlugin extends Plugin {
 		}
 
 		if (utils.isAnimating() || utils.isMoving(beforeLoc)) {
-			beforeLoc = player.getLocalLocation();
+
 			utils.sendGameMessage("you are moving");
 			return "WAITING";
 		} else {
@@ -223,76 +223,78 @@ public class varrockSmitherPlugin extends Plugin {
 	@Subscribe
 	public void onGameTick(GameTick event) {
 		player = client.getLocalPlayer();
-		beforeLoc = player.getLocalLocation();
+
 		if (!startSmithing) {
 			return;
 		}
 
 
 
+		if (client != null && player != null && client.getGameState() == GameState.LOGGED_IN) {
+			status = getStatus();
+			utils.sendGameMessage(status);
+			switch (status) {
+				case "TIMEOUT":
+					utils.handleRun(30, 20);
+					timeOut--;
+					break;
+				case "MOVING":
+					utils.handleRun(30, 20);
+					timeOut = tickDelay();
+					break;
+				case "ANVILING":
+					utils.sendGameMessage("Walking to Anvil");
+					firstTime = true;
+					goToAnvil();
+					utils.handleRun(30, 20);
+					timeOut = tickDelay();
+					break;
+				case "IN_ANIMATION":
+					utils.handleRun(30, 20);
+					timeOut = 5;
+					break;
+				case "CRAFT_ITEM":
+					utils.sendGameMessage("ITS OPEN BRO");
+					itemToSmith();
+					chooseItem();
+					timeOut = 5;
+					break;
+				case "BANKING":
+					utils.sendGameMessage("GOING TO BANK");
+					goToBank();
+					utils.handleRun(30, 20);
+					timeOut = tickDelay();
+					break;
+				case "UNKNOWN":
+					//utils.sendGameMessage("UNKNOWN");
+					break;
+				case "DEPOSIT":
 
-		status = getStatus();
-		utils.sendGameMessage(status);
-		switch (status) {
-			case "TIMEOUT":
-				utils.handleRun(30, 20);
-				timeOut--;
-				break;
-			case "MOVING":
-				utils.handleRun(30,20);
-				timeOut = tickDelay();
-						break;
-			case "ANVILING":
-				utils.sendGameMessage("Walking to Anvil");
-				firstTime = true;
-				goToAnvil();
-				utils.handleRun(30, 20);
-				timeOut = tickDelay();
-				break;
-			case "IN_ANIMATION":
-				utils.handleRun(30, 20);
-				timeOut = 5;
-				break;
-			case "CRAFT_ITEM":
-				utils.sendGameMessage("ITS OPEN BRO");
-				itemToSmith();
-				chooseItem();
-				timeOut = 5;
-				break;
-			case "BANKING":
-				utils.sendGameMessage("GOING TO BANK");
-				goToBank();
-				utils.handleRun(30, 20);
-				timeOut = tickDelay();
-				break;
-			case "UNKNOWN":
-				//utils.sendGameMessage("UNKNOWN");
-				break;
-			case "DEPOSIT":
-
-				utils.depositAllExcept(REQUIRED_ITEMS);
-				timeOut = tickDelay();
-				break;
-			case "WITHDRAW_HAMMER":
-				utils.withdrawItemAmount(ItemID.HAMMER, 1);
-				timeOut = tickDelay();
-				break;
-			case "WITHDRAW_BAR":
-				utils.withdrawAllItem(barID);
-				timeOut = tickDelay();
-				break;
-			case "CLOSE_BANK":
-				utils.closeBank();
-				utils.sendGameMessage("GOING TO WALK TO FURNACE");
-				timeOut = tickDelay();
-				break;
+					utils.depositAllExcept(REQUIRED_ITEMS);
+					timeOut = tickDelay();
+					break;
+				case "WITHDRAW_HAMMER":
+					utils.withdrawItemAmount(ItemID.HAMMER, 1);
+					timeOut = tickDelay();
+					break;
+				case "WITHDRAW_BAR":
+					utils.withdrawAllItem(barID);
+					timeOut = tickDelay();
+					break;
+				case "CLOSE_BANK":
+					utils.closeBank();
+					utils.sendGameMessage("GOING TO WALK TO FURNACE");
+					timeOut = tickDelay();
+					break;
 
 
-			//utils.sendGameMessage("WITHDRAWING ITEMS");
+				//utils.sendGameMessage("WITHDRAWING ITEMS");
 
+
+			}
+			beforeLoc = player.getLocalLocation();
 
 		}
-
 
 	}
 	private void itemToSmith(){

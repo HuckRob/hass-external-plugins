@@ -28,6 +28,7 @@ package net.runelite.client.plugins.sandCrabs;
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.Player;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -54,8 +55,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
         name = "Sand Crabs",
         enabledByDefault = false,
         description = "Does Sand Crabs for You",
-        tags = {"smith"},
-        type = PluginType.SKILLING
+        tags = {"sand","crabs","sand crabs"},
+        type = PluginType.PVM
 )
 @Slf4j
 public class SandcrabsPlugin extends Plugin {
@@ -152,70 +153,69 @@ public class SandcrabsPlugin extends Plugin {
         if (!startBot) {
             return;
         }
-        log.info("goreset value: " + String.valueOf(goReset));
-        log.info("waiting value: " + String.valueOf(waiting));
-        log.info("walktocreab value: " + String.valueOf(walkToCrab));
-		player = client.getLocalPlayer();
+        if (client != null && player != null && client.getGameState() == GameState.LOGGED_IN) {
+            log.debug("goreset value: " + String.valueOf(goReset));
+            log.debug("waiting value: " + String.valueOf(waiting));
+            log.debug("walktocreab value: " + String.valueOf(walkToCrab));
+            player = client.getLocalPlayer();
 
-        if(timeout > 0){
-        	timeout--;
-		}else {
-			states = getState();
-			switch (states) {
-				case "GOTOCRAB":
+            if (timeout > 0) {
+                timeout--;
+            } else {
+                states = getState();
+                switch (states) {
+                    case "GOTOCRAB":
 
-				    //utils.sendGameMessage("Going to crabs");
-					if (player.getWorldLocation().distanceTo(customLocation) > 0) {
-						utils.webWalk(customLocation, 0, utils.isMoving(beforeLoc), sleepDelay());
-					//	utils.walk(customLocation,0,sleepDelay());
-                        status = "Walking to crab";
-						timeout = tickDelay();
-						break;
-					}else{
-					    //utils.sendGameMessage("at position");
-					    walkToCrab =false;
-					    waiting = true;
-					    botTimer = Instant.now();
-                      //  Duration duration = Duration.between(botTimer, Instant.now());
-                      //  timeRan = duration.toSeconds();
-                     //   timeRun =600- (int) timeRan;
-					 //   log.info(String.valueOf(duration));
-					  //  utils.sendGameMessage(Integer.toString(timeRun));
-                    }
-                case "CHECKTIME":
-                    Duration duration = Duration.between(botTimer, Instant.now());
-                     timeRan = duration.toSeconds();
-                    timeRun = (int) timeRan;
-                    status = "Waiting until reset";
-                    timeRuns = (620+randVar)-timeRun;
-                    // utils.sendGameMessage(Integer.toString(timeRun));
-                     if (timeRun > 620+randVar){
-                         waiting = false;
-                         goReset = true;
+                        //utils.sendGameMessage("Going to crabs");
+                        if (player.getWorldLocation().distanceTo(customLocation) > 0) {
+                            utils.webWalk(customLocation, 0, utils.isMoving(beforeLoc), sleepDelay());
+                            //	utils.walk(customLocation,0,sleepDelay());
+                            status = "Walking to crab";
+                            timeout = tickDelay();
+                            break;
+                        } else {
+                            //utils.sendGameMessage("at position");
+                            walkToCrab = false;
+                            waiting = true;
+                            botTimer = Instant.now();
+                            //  Duration duration = Duration.between(botTimer, Instant.now());
+                            //  timeRan = duration.toSeconds();
+                            //   timeRun =600- (int) timeRan;
+                            //   log.info(String.valueOf(duration));
+                            //  utils.sendGameMessage(Integer.toString(timeRun));
+                        }
+                    case "CHECKTIME":
+                        Duration duration = Duration.between(botTimer, Instant.now());
+                        timeRan = duration.toSeconds();
+                        timeRun = (int) timeRan;
+                        status = "Waiting until reset";
+                        timeRuns = (620 + randVar) - timeRun;
+                        // utils.sendGameMessage(Integer.toString(timeRun));
+                        if (timeRun > 620 + randVar) {
+                            waiting = false;
+                            goReset = true;
 
-                         break;
-                     }
-                    break;
-                case "RESETTING":
-                    if (player.getWorldLocation().distanceTo(resetLocation) > 4) {
-                     //   utils.webWalk(resetLocation, 3, utils.isMoving(beforeLoc), sleepDelay());
-                        utils.walk(resetLocation,3,sleepDelay());
-                        timeout = tickDelay();
-                        status = "Resetting";
+                            break;
+                        }
                         break;
-                    }else {
-                        walkToCrab = true;
-                        goReset = false;
-                      //  utils.sendGameMessage("at reset spot");
-                    }
+                    case "RESETTING":
+                        if (player.getWorldLocation().distanceTo(resetLocation) > 4) {
+                            //   utils.webWalk(resetLocation, 3, utils.isMoving(beforeLoc), sleepDelay());
+                            utils.walk(resetLocation, 3, sleepDelay());
+                            timeout = tickDelay();
+                            status = "Resetting";
+                            break;
+                        } else {
+                            walkToCrab = true;
+                            goReset = false;
+                            //  utils.sendGameMessage("at reset spot");
+                        }
 
 
-
-
-			}
-		}
-		beforeLoc = player.getLocalLocation();
-
+                }
+            }
+            beforeLoc = player.getLocalLocation();
+        }
 
     }
 
