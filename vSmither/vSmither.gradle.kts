@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2018, SomeoneWithAnInternetConnection
- * Copyright (c) 2018, oplosthee <https://github.com/oplosthee>
+ * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,50 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.sandCrabs;
 
-import net.runelite.client.config.Button;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+version = "0.1.0"
 
-@ConfigGroup("varrockSmither")
-public interface varrockSmitherConfiguration extends Config
-{
+project.extra["PluginName"] = "vSmither"
+project.extra["PluginDescription"] = "harastwon - smiths item of choice at varrock smithery"
 
-	@ConfigItem(
-		keyName = "getBarType",
-		name = "Smithing Bar",
-		description = "Bar that will be used to craft items",
-		position = 0
-	)
-	default barTypes getBarType()
-	{
-		return barTypes.BRONZE_BAR;
-	}
+dependencies {
+    compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.6.0+");
+}
 
-
-	@ConfigItem(
-		keyName = "craftItem",
-		name = "Item to craft",
-		description = "Select item to smith",
-		position = 1
-	)
-	default itemTypes craftItem()	{ return itemTypes.Dagger; }
-
-	@ConfigItem(
-			keyName = "startButton",
-			name = "Start",
-			description = "",
-			position = 2
-	)
-	default Button startButton() { return new Button(); }
-
-	@ConfigItem(
-			keyName = "stopButton",
-			name = "Stop",
-			description = "",
-			position = 3
-	)
-	default Button stopButton() { return new Button(); }
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+                    "Plugin-Version" to project.version,
+                    "Plugin-Id" to nameToId(project.extra["PluginName"] as String),
+                    "Plugin-Provider" to project.extra["PluginProvider"],
+                    "Plugin-Dependencies" to nameToId("BotUtils"),
+                    "Plugin-Description" to project.extra["PluginDescription"],
+                    "Plugin-License" to project.extra["PluginLicense"]
+            ))
+        }
+    }
 }

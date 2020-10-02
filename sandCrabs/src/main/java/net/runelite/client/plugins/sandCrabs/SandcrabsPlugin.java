@@ -47,6 +47,7 @@ import org.pf4j.Extension;
 import javax.inject.Inject;
 import java.time.Duration;
 import java.time.Instant;
+
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @Extension
@@ -55,7 +56,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
         name = "Sand Crabs",
         enabledByDefault = false,
         description = "Does Sand Crabs for You",
-        tags = {"sand","crabs","sand crabs"},
+        tags = {"sand", "crabs", "sand crabs"},
         type = PluginType.PVM
 )
 @Slf4j
@@ -91,8 +92,8 @@ public class SandcrabsPlugin extends Plugin {
     int tickLength;
     int timeout;
     boolean startBot;
-	boolean walkToCrab;
-	String states;
+    boolean walkToCrab;
+    String states;
     long timeRan;
     int timeRun;
     boolean waiting;
@@ -137,7 +138,7 @@ public class SandcrabsPlugin extends Plugin {
             setLocations();
             botTimer = Instant.now();
             totalTimer = Instant.now();
-            randVar = utils.getRandomIntBetweenRange(-5,6);
+            randVar = utils.getRandomIntBetweenRange(-5, 6);
             walkToCrab = true;
             startBot = true;
             waiting = false;
@@ -219,62 +220,59 @@ public class SandcrabsPlugin extends Plugin {
 
     }
 
-    private String getState(){
-    	if(walkToCrab){
-    		return "GOTOCRAB";
-		}
-    	if(waiting){
-    	    return "CHECKTIME";
+    private String getState() {
+        if (walkToCrab) {
+            return "GOTOCRAB";
         }
-    	if(goReset){
-    	    return "RESETTING";
+        if (waiting) {
+            return "CHECKTIME";
         }
-    	else{
-    		return null;
-		}
-	}
+        if (goReset) {
+            return "RESETTING";
+        } else {
+            return null;
+        }
+    }
 
     private void setLocations() {
         if (!config.useCustom()) {
             customLocation = new WorldPoint(1843, 3462, 0);
-            resetLocation = new WorldPoint(1846, 3504,0);
-        } else{
+            resetLocation = new WorldPoint(1846, 3504, 0);
+        } else {
             customLocation = getCustomLoc("crab");
             resetLocation = getCustomLoc("reset");
         }
 
     }
 
-private WorldPoint getCustomLoc(String what){
-    if(what.equalsIgnoreCase("crab")) {
-        int[] customTemp = utils.stringToIntArray(config.customCrabLocation());
-        if (customTemp.length != 3) {
-            return null;
-        } else {
-            return new WorldPoint(customTemp[0], customTemp[1], customTemp[2]);
+    private WorldPoint getCustomLoc(String what) {
+        if (what.equalsIgnoreCase("crab")) {
+            int[] customTemp = utils.stringToIntArray(config.customCrabLocation());
+            if (customTemp.length != 3) {
+                return null;
+            } else {
+                return new WorldPoint(customTemp[0], customTemp[1], customTemp[2]);
+            }
+        } else if (what.equalsIgnoreCase("reset")) {
+            int[] customTemp = utils.stringToIntArray(config.customResetLocation());
+            if (customTemp.length != 3) {
+                return null;
+            } else {
+                return new WorldPoint(customTemp[0], customTemp[1], customTemp[2]);
+            }
         }
-    }else if(what.equalsIgnoreCase("reset")){
-        int[] customTemp = utils.stringToIntArray(config.customResetLocation());
-        if (customTemp.length != 3) {
-            return null;
-        } else {
-            return new WorldPoint(customTemp[0], customTemp[1], customTemp[2]);
-        }
+        return null;
     }
-    return null;
-}
 
-	private long sleepDelay()
-	{
-		sleepLength = utils.randomDelay(false, 60, 300, 20, 100);
-		return sleepLength;
-	}
+    private long sleepDelay() {
+        sleepLength = utils.randomDelay(false, 60, 300, 20, 100);
+        return sleepLength;
+    }
 
-	private int tickDelay()
-	{
-		tickLength = (int) utils.randomDelay(false, 1, 3, 1, 2);
-		return tickLength;
-	}
+    private int tickDelay() {
+        tickLength = (int) utils.randomDelay(false, 1, 3, 1, 2);
+        return tickLength;
+    }
 
 
 }

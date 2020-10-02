@@ -26,7 +26,7 @@
 rootProject.name = "hass Plugins"
 
 
-include(":varrocksmither")
+include(":vSmither")
 include(":sandCrabs")
 
 for (project in rootProject.children) {

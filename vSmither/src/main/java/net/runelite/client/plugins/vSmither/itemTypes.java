@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.sandCrabs;
+package net.runelite.client.plugins.vSmither;
 
 
 import lombok.Getter;
