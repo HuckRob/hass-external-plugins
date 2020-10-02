@@ -4,6 +4,12 @@ External plugins for OpenOSRS.
 
 The purpose of this repository is primarily for my own learning.
 
+# Plugins- guide
+
+sandcrabs - start by the crabs, default is coded for 2 crab spot, can set custom coords for crab and reset spot
+
+vSmither - select bar and item to smith, start with hammer at varrock west bank
+
 # Use
 
 **Supported plugins:**
