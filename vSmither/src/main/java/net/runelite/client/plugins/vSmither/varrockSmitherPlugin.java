@@ -121,7 +121,7 @@ public class varrockSmitherPlugin extends Plugin {
 	@Subscribe
 	public void onConfigButtonClicked(ConfigButtonClicked event) {
 
-		if (!event.getGroup().equalsIgnoreCase("varrocksmither")) {
+		if (!event.getGroup().equalsIgnoreCase("vSmither")) {
 			return;
 		}
 
