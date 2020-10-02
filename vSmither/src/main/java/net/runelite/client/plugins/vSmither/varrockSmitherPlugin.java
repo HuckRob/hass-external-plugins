@@ -53,7 +53,7 @@ import net.runelite.api.ItemID;
 @Extension
 @PluginDependency(BotUtils.class)
 @PluginDescriptor(
-	name = "Varrock Smither",
+	name = "Vsmither",
 	enabledByDefault = false,
 	description = "Smiths item of choice at varrock",
 	tags = {"smith","varrock smithing"},

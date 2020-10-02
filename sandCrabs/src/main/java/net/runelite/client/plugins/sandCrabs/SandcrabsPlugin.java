@@ -154,11 +154,12 @@ public class SandcrabsPlugin extends Plugin {
         if (!startBot) {
             return;
         }
+        player = client.getLocalPlayer();
         if (client != null && player != null && client.getGameState() == GameState.LOGGED_IN) {
             log.debug("goreset value: " + String.valueOf(goReset));
             log.debug("waiting value: " + String.valueOf(waiting));
             log.debug("walktocreab value: " + String.valueOf(walkToCrab));
-            player = client.getLocalPlayer();
+
 
             if (timeout > 0) {
                 timeout--;
