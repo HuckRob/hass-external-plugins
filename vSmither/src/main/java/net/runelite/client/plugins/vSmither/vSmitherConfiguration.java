@@ -31,7 +31,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("vSmither")
-public interface varrockSmitherConfiguration extends Config
+public interface vSmitherConfiguration extends Config
 {
 
 	@ConfigItem(

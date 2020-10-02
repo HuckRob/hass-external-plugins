@@ -60,12 +60,12 @@ import net.runelite.api.ItemID;
 	type = PluginType.SKILLING
 )
 @Slf4j
-public class varrockSmitherPlugin extends Plugin {
+public class vSmitherPlugin extends Plugin {
 	@Inject
 	private Client client;
 
 	@Inject
-	private varrockSmitherConfiguration config;
+	private vSmitherConfiguration config;
 
 	@Inject
 	private BotUtils utils;
@@ -96,8 +96,8 @@ public class varrockSmitherPlugin extends Plugin {
 	//String item  = "SMITHING_ANVIL_DAGGER";
 	List<Integer> REQUIRED_ITEMS = new ArrayList<>();
 	@Provides
-	varrockSmitherConfiguration provideConfig(ConfigManager configManager) {
-		return configManager.getConfig(varrockSmitherConfiguration.class);
+	vSmitherConfiguration provideConfig(ConfigManager configManager) {
+		return configManager.getConfig(vSmitherConfiguration.class);
 	}
 
 	@Override
