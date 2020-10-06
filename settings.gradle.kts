@@ -28,6 +28,7 @@ rootProject.name = "hass Plugins"
 
 include(":vSmither")
 include(":sandCrabs")
+include(":hRoguesDen")
 
 for (project in rootProject.children) {
     project.apply {

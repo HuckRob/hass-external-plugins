@@ -30,6 +30,7 @@ project.extra["PluginDescription"] = "harastwon - does sand crabs, resets aggro 
 
 dependencies {
     compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.6.0+");
+
 }
 
 tasks {

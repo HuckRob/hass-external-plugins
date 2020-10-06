@@ -29,6 +29,7 @@ import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -82,6 +83,7 @@ public class SandcrabsPlugin extends Plugin {
     @Inject
     private ItemManager itemManager;
 
+    NPC currentNPC;
     Instant botTimer;
     Instant totalTimer;
     Player player;
@@ -194,10 +196,17 @@ public class SandcrabsPlugin extends Plugin {
                         timeRuns = (620 + randVar) - timeRun;
                         // utils.sendGameMessage(Integer.toString(timeRun));
                         if (timeRun > 620 + randVar) {
-                            waiting = false;
-                            goReset = true;
+                            if(inCombat()){
+                                timeRun =- 30;
+                                break;
+                            }else{
+                                waiting = false;
+                                goReset = true;
+                                break;
+                            }
 
-                            break;
+
+
                         }
                         break;
                     case "RESETTING":
@@ -244,6 +253,15 @@ public class SandcrabsPlugin extends Plugin {
             resetLocation = getCustomLoc("reset");
         }
 
+    }
+
+    private boolean inCombat(){
+        currentNPC = (NPC) player.getInteracting();
+        if(currentNPC == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     private WorldPoint getCustomLoc(String what) {

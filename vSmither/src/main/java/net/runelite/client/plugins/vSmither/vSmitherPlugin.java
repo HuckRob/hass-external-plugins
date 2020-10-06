@@ -232,7 +232,7 @@ public class vSmitherPlugin extends Plugin {
 
 		if (client != null && player != null && client.getGameState() == GameState.LOGGED_IN) {
 			status = getStatus();
-			utils.sendGameMessage(status);
+			//utils.sendGameMessage(status);
 			switch (status) {
 				case "TIMEOUT":
 					utils.handleRun(30, 20);
@@ -243,7 +243,7 @@ public class vSmitherPlugin extends Plugin {
 					timeOut = tickDelay();
 					break;
 				case "ANVILING":
-					utils.sendGameMessage("Walking to Anvil");
+				//	utils.sendGameMessage("Walking to Anvil");
 					firstTime = true;
 					goToAnvil();
 					utils.handleRun(30, 20);
@@ -254,13 +254,13 @@ public class vSmitherPlugin extends Plugin {
 					timeOut = 5;
 					break;
 				case "CRAFT_ITEM":
-					utils.sendGameMessage("ITS OPEN BRO");
+					//utils.sendGameMessage("ITS OPEN BRO");
 					itemToSmith();
 					chooseItem();
 					timeOut = 5;
 					break;
 				case "BANKING":
-					utils.sendGameMessage("GOING TO BANK");
+					//utils.sendGameMessage("GOING TO BANK");
 					goToBank();
 					utils.handleRun(30, 20);
 					timeOut = tickDelay();
@@ -283,7 +283,7 @@ public class vSmitherPlugin extends Plugin {
 					break;
 				case "CLOSE_BANK":
 					utils.closeBank();
-					utils.sendGameMessage("GOING TO WALK TO FURNACE");
+				//	utils.sendGameMessage("GOING TO WALK TO FURNACE");
 					timeOut = tickDelay();
 					break;
 
@@ -370,7 +370,7 @@ public class vSmitherPlugin extends Plugin {
 	}
 
 	private void chooseItem() {
-utils.sendGameMessage(Integer.toString(smithingWidg));
+//utils.sendGameMessage(Integer.toString(smithingWidg));
 		targetMenu = new MenuEntry("", "", 1, MenuOpcode.CC_OP.getId(), -1, smithingWidg, false);
 		if (targetMenu != null) {
 			utils.sendGameMessage("not null");

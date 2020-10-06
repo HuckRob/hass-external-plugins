@@ -30,6 +30,7 @@ project.extra["PluginDescription"] = "harastwon - smiths item of choice at varro
 
 dependencies {
     compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.6.0+");
+
 }
 
 tasks {
