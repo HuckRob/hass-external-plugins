@@ -23,13 +23,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-version = "0.4.0"
+version = "0.5.0"
 
 project.extra["PluginName"] = "has-Crabs"
 project.extra["PluginDescription"] = "harastwon - does crabs, resets aggro after 10 mins"
 
 dependencies {
-    compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.6.0+");
+    compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.9.3");
 
 }
 

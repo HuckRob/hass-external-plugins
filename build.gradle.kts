@@ -108,14 +108,7 @@ subprojects {
             options.encoding = "UTF-8"
         }
 
-        withType<Jar> {
-            doLast {
-                copy {
-                    from("./build/libs/")
-                    into("D:\\custom plugins\\release")
-                }
-            }
-        }
+
 
         withType<AbstractArchiveTask> {
             isPreserveFileTimestamps = false

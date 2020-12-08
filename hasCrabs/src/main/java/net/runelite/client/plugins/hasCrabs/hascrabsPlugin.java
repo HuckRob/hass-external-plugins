@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.sandCrabs;
+package net.runelite.client.plugins.hasCrabs;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
@@ -193,7 +193,8 @@ public class hascrabsPlugin extends Plugin {
                         }
                     case "CHECKTIME":
                         Duration duration = Duration.between(botTimer, Instant.now());
-                        timeRan = duration.toSeconds();
+                        //timeRan = duration.toSeconds();
+                        timeRan = duration.getSeconds();
                         timeRun = (int) timeRan;
                         status = "Waiting until reset";
                         timeRuns = (resetTime) - timeRun;

@@ -25,11 +25,11 @@
 
 version = "0.1.0"
 
-project.extra["PluginName"] = "vSmither"
-project.extra["PluginDescription"] = "harastwon - smiths item of choice at varrock smithery"
+project.extra["PluginName"] = "rogue denner "
+project.extra["PluginDescription"] = "harastwon - shite plugin"
 
 dependencies {
-    compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.7.0+");
+    compileOnly(group = "com.openosrs.externals", name = "botutils", version = "4.9.3");
 
 }
 
